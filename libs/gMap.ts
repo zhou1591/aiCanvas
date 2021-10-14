@@ -422,7 +422,7 @@ export default class Map {
         }
         this.boundsChangedTimer = window.setTimeout(() => {
             this.eventsObServer.emit(EEventType.BoundsChanged);
-        }, 666);
+        }, 200);
 
         // 刷新overlayLayer: 目的是绘制图形过程中刷新临时绘制要素信息
         this.overlayLayer.refresh();
@@ -864,5 +864,13 @@ export default class Map {
     // 打印测试输出
     printInfo() {
 
+    }
+
+    /**
+     * @Date: 2021-10-14 18:59:31
+     * @description: 空格闭合 gLayerEvent 得多边形和多段线
+     */    
+    public spaceClosePoly() {
+        this.eventLayer.spaceClosePoly();
     }
 }

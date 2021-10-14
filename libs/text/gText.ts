@@ -57,7 +57,6 @@ export default class Text {
         this.id = id;
         this.type = ETextType.Text;
         this.props = props;
-
         this.textInfo = _assign({}, Text.defaultTextInfo, text);
         this.style = _assign({}, Text.defaultStyle, style);
     }
@@ -92,6 +91,15 @@ export default class Text {
         this.textInfo = {
             ...textInfo,
             position
+        };
+        this.layer?.refresh();
+    }
+
+    // 更新text样式
+    updateTextStyle(style: ITextStyle) {
+        this.style = {
+            ...this.style,
+            style
         };
         this.layer?.refresh();
     }

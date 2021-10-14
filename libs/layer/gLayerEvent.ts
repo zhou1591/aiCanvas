@@ -926,7 +926,9 @@ export default class EventLayer extends Layer  {
                     this.toUpdateShape = {...shape, start, end};
                 }
                 else {
-                    this.toUpdateShape = {...shape, points: newPoints};
+                    // 和新增多边形返回值统一
+                    this.toUpdateShape = newPoints;
+                    // this.toUpdateShape = {...shape, points: newPoints};
                 }
 
                 // 临时层执行绘制
@@ -1095,7 +1097,15 @@ export default class EventLayer extends Layer  {
         this.startPoint = this.getMouseEventPoint(e);
         this.startPageScreenPoint = {x: screenX, y: screenY};
 
-        const mapMode = this.map.mode;
+        let mapMode = this.map.mode;
+        /**
+         * @Date: 2021-10-14 17:38:38
+         * @description: 控制左键绘制右键移动
+         */        
+        if(mapMode !== 'BAN' && e.which ===3){
+            mapMode = EMapMode.Pan
+            this.map.setCursor(ECursorType.Grabbing)
+        }
         const dragging = this.dragging;
         const isCapturedFeature = this.hoverFeature || _isNumber(this.hoverFeatureIndex);
         const drawing = !dragging && !isCapturedFeature;
@@ -1271,7 +1281,22 @@ export default class EventLayer extends Layer  {
             this.getMouseEventPoint(e)
         );
     }
-
+    /**
+     * @Date: 2021-10-14 18:40:26
+     * @description: 空格手动触发闭合多边形 多段线
+     * 这个 MouseEvent  里边没用上
+     */    
+    public spaceClosePoly(e?:MouseEvent){
+        const mapMode = this.map.mode;
+        const config = {
+            [EMapMode.Polyline]:this.handlePolylineEnd,
+            [EMapMode.Polygon]:this.handlePolygonEnd
+        }
+        const apiName = config[mapMode]
+        if(!apiName)return
+        this.tmpPointsStore.push(this.startPoint||{} as IBasePoint)
+        apiName.call(this,e)
+    }
     // onMouseDblClick: 事件绑定-双击事件
     public onMouseDblClick(e: MouseEvent) {
         // 判断是否在绘制或者编辑拖拽过程中
@@ -1345,7 +1370,7 @@ export default class EventLayer extends Layer  {
     handlePanWhenDrawing(e: MouseEvent) {
         const directionIndex = Util.EventUtil.getMouseDirection(this.map.dom, e);
         this.clearPanWhenDrawingTimer();
-        const panScreenDistance = 10; // 每次平移10个像素
+        const panScreenDistance = 20; // 每次平移20个像素
 
         // 如果map设置不允许自动平移 || 没有进行任何绘制点时
         if (!this.map.panWhenDrawing || !this.tmpPointsStore.length) {

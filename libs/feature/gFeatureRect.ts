@@ -49,7 +49,6 @@ export default class RectFeature extends Feature {
 
         const dpr = CanvasLayer.dpr;
         const scale = this.layer.map.getScale();
-
         Graphic.drawRect(
             this.layer.canvasContext,
             this.shape as IRectShape,
