@@ -123,6 +123,7 @@ export default class Graphic {
         const fill = _isBoolean(style.fill) ? style.fill : false;
 
         // 校验
+        if(!points)return
         const pointsLength = points.length;
         if (pointsLength < limitCount) {
             return;

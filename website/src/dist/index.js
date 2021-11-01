@@ -7781,6 +7781,7 @@
         var stroke = isBoolean_1(style.stroke) ? style.stroke : true;
         var fill = isBoolean_1(style.fill) ? style.fill : false; // 校验
 
+        if (!points) return;
         var pointsLength = points.length;
 
         if (pointsLength < limitCount) {
