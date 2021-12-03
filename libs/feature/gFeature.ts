@@ -29,6 +29,7 @@ export default class Feature {
      * style: userFeatureStyle merge defaultStyle
     */
     static defaultStyle: IFeatureStyle = {
+        hidden:false,
         opacity: 1,
         fillStyle: 'rgba(255, 0, 0, 0)',
         lineWidth: 1,
@@ -105,5 +106,16 @@ export default class Feature {
     // 打印测试输出
     printInfo() {
 
+    }
+    /**
+     * @Date: 2021-11-08 15:46:55
+     * @description: 统一校验
+     */    
+    baseValied(){
+        if (!this.layer?.map) {
+            return;
+        }
+        if(this.style.hidden)return
+        return true
     }
 }

@@ -29,10 +29,11 @@ export default class Text {
      * style: userFeatureStyle merge defaultStyle
     */
      static defaultStyle: ITextStyle = {
+        hidden:false,
         opacity: 1,
         strokeStyle: '#FF0000',
         background: true, // 是否有背景色
-        fontColor: '#FFFFFF', // 字体颜色
+        fontColor: '#FF4046', // 字体颜色
         fillStyle: '#FF0000',
         font: 'normal 12px Arial',
         textAlign: 'left',
@@ -97,10 +98,7 @@ export default class Text {
 
     // 更新text样式
     updateTextStyle(style: ITextStyle) {
-        this.style = {
-            ...this.style,
-            style
-        };
+        this.style = _assign(this.style, style);
         this.layer?.refresh();
     }
 
@@ -109,6 +107,7 @@ export default class Text {
         if (!this.layer?.map) {
             return;
         }
+        if(this.style.hidden)return
         const textInfo = this.textInfo;
         const dpr = CanvasLayer.dpr;
 

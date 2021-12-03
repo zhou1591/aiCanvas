@@ -38,12 +38,10 @@ export default class PointFeature extends Feature {
     // 执行绘制当前
     // @override
     refresh() {
+        if(!this.baseValied())return
+
         // 执行坐标转换
         const {x, y, r, sr} = this.shape as IPointShape;
-
-        if (!this.layer?.map) {
-            return;
-        }
 
         const {x: screenX, y: screenY} = this.layer.map.transformGlobalToScreen({x, y});
 

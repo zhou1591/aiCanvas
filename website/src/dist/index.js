@@ -10641,12 +10641,30 @@
     }, {
       key: "printInfo",
       value: function printInfo() {}
+      /**
+       * @Date: 2021-11-08 15:46:55
+       * @description: 统一校验
+       */
+
+    }, {
+      key: "baseValied",
+      value: function baseValied() {
+        var _this$layer6;
+
+        if (!((_this$layer6 = this.layer) !== null && _this$layer6 !== void 0 && _this$layer6.map)) {
+          return;
+        }
+
+        if (this.style.hidden) return;
+        return true;
+      }
     }]);
 
     return Feature;
   }();
 
   _defineProperty$1(Feature$1, "defaultStyle", {
+    hidden: false,
     opacity: 1,
     fillStyle: 'rgba(255, 0, 0, 0)',
     lineWidth: 1,
@@ -10710,18 +10728,13 @@
     }, {
       key: "refresh",
       value: function refresh() {
-        var _this$layer2;
+        if (!this.baseValied()) return; // 执行坐标转换
 
-        // 执行坐标转换
         var _ref2 = this.shape,
             x = _ref2.x,
             y = _ref2.y,
             r = _ref2.r,
             sr = _ref2.sr;
-
-        if (!((_this$layer2 = this.layer) !== null && _this$layer2 !== void 0 && _this$layer2.map)) {
-          return;
-        }
 
         var _this$layer$map$trans = this.layer.map.transformGlobalToScreen({
           x: x,
@@ -10862,12 +10875,7 @@
     }, {
       key: "refresh",
       value: function refresh() {
-        var _this$layer3;
-
-        if (!((_this$layer3 = this.layer) !== null && _this$layer3 !== void 0 && _this$layer3.map)) {
-          return;
-        } // 执行坐标转换
-
+        if (!this.baseValied()) return; // 执行坐标转换
 
         var _ref3 = this.shape,
             start = _ref3.start,
@@ -10987,13 +10995,9 @@
     }, {
       key: "refresh",
       value: function refresh() {
-        var _this$layer2,
-            _this2 = this;
+        var _this2 = this;
 
-        if (!((_this$layer2 = this.layer) !== null && _this$layer2 !== void 0 && _this$layer2.map)) {
-          return;
-        } // 执行坐标转换
-
+        if (!this.baseValied()) return; // 执行坐标转换
 
         var dpr = CanvasLayer.dpr;
         var scale = this.layer.map.getScale();
@@ -11089,13 +11093,9 @@
     }, {
       key: "refresh",
       value: function refresh() {
-        var _this$layer3,
-            _this2 = this;
+        var _this2 = this;
 
-        if (!((_this$layer3 = this.layer) !== null && _this$layer3 !== void 0 && _this$layer3.map)) {
-          return;
-        }
-
+        if (!this.baseValied()) return;
         var dpr = CanvasLayer.dpr;
         var scale = this.layer.map.getScale();
         Graphic.drawRect(this.layer.canvasContext, this.shape, this.style, {
@@ -11166,13 +11166,9 @@
     }, {
       key: "refresh",
       value: function refresh() {
-        var _this$layer,
-            _this2 = this;
+        var _this2 = this;
 
-        if (!((_this$layer = this.layer) !== null && _this$layer !== void 0 && _this$layer.map)) {
-          return;
-        } // 执行坐标转换
-
+        if (!this.baseValied()) return; // 执行坐标转换
 
         var _ref2 = this.shape,
             points = _ref2.points;
@@ -11350,13 +11346,9 @@
     }, {
       key: "refresh",
       value: function refresh() {
-        var _this$layer5,
-            _this2 = this;
+        var _this2 = this;
 
-        if (!((_this$layer5 = this.layer) !== null && _this$layer5 !== void 0 && _this$layer5.map)) {
-          return;
-        }
-
+        if (!this.baseValied()) return;
         var isGlobalSubtype = this.getSubType() === EFeatureCircleSubtype.Global;
         var dpr = CanvasLayer.dpr;
         var scale = this.layer.map.getScale();
@@ -11593,9 +11585,7 @@
       value: function updateTextStyle(style) {
         var _this$layer3;
 
-        this.style = _objectSpread$2(_objectSpread$2({}, this.style), {}, {
-          style: style
-        });
+        this.style = assign_1(this.style, style);
         (_this$layer3 = this.layer) === null || _this$layer3 === void 0 ? void 0 : _this$layer3.refresh();
       } // 刷新当前数据
 
@@ -11609,6 +11599,7 @@
           return;
         }
 
+        if (this.style.hidden) return;
         var textInfo = this.textInfo;
         var dpr = CanvasLayer.dpr;
         Graphic.drawText(this.layer.canvasContext, textInfo, this.style, {
@@ -11645,6 +11636,7 @@
   }();
 
   _defineProperty$1(Text, "defaultStyle", {
+    hidden: false,
     opacity: 1,
     strokeStyle: '#FF0000',
     background: true,
@@ -14433,11 +14425,7 @@
     }, {
       key: "refresh",
       value: function refresh() {
-        var _this$layer;
-
-        if (!((_this$layer = this.layer) !== null && _this$layer !== void 0 && _this$layer.map)) {
-          return;
-        }
+        if (!this.baseValied()) return;
       }
     }]);
 

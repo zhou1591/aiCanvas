@@ -25,8 +25,6 @@ export default class ArrowFeature extends Feature {
     // 执行绘制当前
     // @override
     refresh() {
-        if (!this.layer?.map) {
-            return;
-        }
+        if(!this.baseValied())return
     }
 }

@@ -37,9 +37,8 @@ export default class LineFeature extends Feature {
     // 执行绘制当前
     // @override
     refresh() {
-        if (!this.layer?.map) {
-            return;
-        }
+        if(!this.baseValied())return
+
         // 执行坐标转换
         const {start, end, width} = this.shape as ILineShape;
         const {x: startX, y: startY} = this.layer.map.transformGlobalToScreen(start);
