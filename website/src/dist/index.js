@@ -8312,9 +8312,6 @@
 
     var _super = _createSuper$h(EventLayer);
 
-    // 实时记录鼠标的位置
-    // mouseDown坐标{screen:IPoint: 相对容器左上角坐标, globalPoint}
-    //  mouseDown坐标：相对页面左上角的坐标
     // 标记是否处于dragging拖拽状态
     // mousemove过程中因为涉及到防抖逻辑，在setTimeOut需要判断是否会后续逻辑打断
     // 多边形绘制时临时保存points：IBasePoint[]
@@ -8331,6 +8328,8 @@
       _classCallCheck(this, EventLayer);
 
       _this = _super.call(this, id, ELayerType.Event, props, style);
+
+      _defineProperty$1(_assertThisInitialized(_this), "isUpPrecision", false);
 
       _defineProperty$1(_assertThisInitialized(_this), "dragging", false);
 
@@ -10256,6 +10255,17 @@
       value: function refresh() {
         _get(_getPrototypeOf(EventLayer.prototype), "refresh", this).call(this);
       }
+      /**
+       * @user: zjs
+       * @Date: 2021-12-06 17:48:37
+       * @description: 是否开启高精度
+       */
+
+    }, {
+      key: "modifyUpPrecision",
+      value: function modifyUpPrecision(val) {
+        this.isUpPrecision = val;
+      }
     }]);
 
     return EventLayer;
@@ -11641,7 +11651,7 @@
     strokeStyle: '#FF0000',
     background: true,
     // 是否有背景色
-    fontColor: '#FFFFFF',
+    fontColor: '#FF4046',
     // 字体颜色
     fillStyle: '#FF0000',
     font: 'normal 12px Arial',
@@ -13257,6 +13267,17 @@
       key: "spaceClosePoly",
       value: function spaceClosePoly() {
         this.eventLayer.spaceClosePoly();
+      }
+      /**
+       * @user: zjs
+       * @Date: 2021-12-06 17:25:01
+       * @description: 更改高精度标注开启
+       */
+
+    }, {
+      key: "modifyUpPrecision",
+      value: function modifyUpPrecision(val) {
+        this.eventLayer.modifyUpPrecision();
       }
     }]);
 

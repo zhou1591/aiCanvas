@@ -56,6 +56,7 @@ export interface IAxisOption {
 };
 
 export interface IMapOptions {
+    isUpPrecision?:Boolean,
     center?: IPoint,
     zoom?: number,
     zoomWheelRatio?: number,

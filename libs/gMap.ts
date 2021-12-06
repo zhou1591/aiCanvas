@@ -873,4 +873,12 @@ export default class Map {
     public spaceClosePoly() {
         this.eventLayer.spaceClosePoly();
     }
+    /**
+     * @user: zjs
+     * @Date: 2021-12-06 17:25:01
+     * @description: 更改高精度标注开启
+     */    
+    public modifyUpPrecision(val){
+        this.eventLayer.modifyUpPrecision();
+    }
 }

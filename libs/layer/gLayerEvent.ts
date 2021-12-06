@@ -31,6 +31,8 @@ import { ITextInfo } from '../text/gInterface';
 export default class EventLayer extends Layer  {
     public eventDom: HTMLDivElement
 
+    public isUpPrecision: boolean = false
+
     // 实时记录鼠标的位置
     public mouseMoveEvent: MouseEvent
 
@@ -1168,7 +1170,7 @@ export default class EventLayer extends Layer  {
 
         // 获取move坐标
         const {screen, global} = this.getMouseEventPoint(e);
-
+        
         // 后续对应模式处理
         const mapMode = this.map.mode;
         const dragging = this.dragging;
@@ -1496,5 +1498,13 @@ export default class EventLayer extends Layer  {
     // @override
     refresh() {
         super.refresh();
+    }
+    /**
+     * @user: zjs
+     * @Date: 2021-12-06 17:48:37
+     * @description: 是否开启高精度
+     */    
+    public modifyUpPrecision(val) {
+        this.isUpPrecision=val
     }
 }
