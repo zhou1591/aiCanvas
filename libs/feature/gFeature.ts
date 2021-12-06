@@ -1,11 +1,12 @@
 import _assign from 'lodash/assign';
 
-import { IObject, IPoint } from '../gInterface';
+import {IObject, IPoint} from '../gInterface';
 import FeatureLayer from '../layer/gLayerFeature';
 import OverlayLayer from '../layer/gLayerOverlay';
 import ExportHelperLayer from '../layer/gLayerExportHelper';
-import { IFeatureStyle, IRectShape, IFeatureShape } from './gInterface';
-import { EFeatureType } from './gEnum';
+import {IFeatureStyle, IRectShape, IFeatureShape} from './gInterface';
+import {EFeatureType} from './gEnum';
+import {EDirection} from '../gEnum';
 
 export type TFeatureLayerType = FeatureLayer | OverlayLayer | ExportHelperLayer;
 
@@ -22,6 +23,9 @@ export default class Feature {
 
     // 最小外接矩形
     public bounds: IRectShape
+
+    // 平移feature的步长，默认1个屏幕项目
+    static moveStep: number = 1
 
     /**
      * props: feature样式
@@ -67,7 +71,7 @@ export default class Feature {
 
     // 获取最小外接矩形[各子类自行实现]
     getBounds(): IRectShape {
-        return { x: 0, y: 0, width: 0, height: 0 };
+        return {x: 0, y: 0, width: 0, height: 0};
     }
 
     // 判断是否捕捉到当前对象，各子类自行实现
@@ -87,6 +91,9 @@ export default class Feature {
         }
     }
 
+    // 移动feature, 各子类自行实现对应方法
+    onMove(direction: EDirection) {}
+
     // 改变样式
     setStyle(style: IFeatureStyle, option: IObject = {}) {
         const { refresh = true } = option;
@@ -101,7 +108,7 @@ export default class Feature {
     }
 
     // 刷新当前数据
-    refresh() { }
+    refresh() {}
 
     // 打印测试输出
     printInfo() {
@@ -111,7 +118,7 @@ export default class Feature {
      * @Date: 2021-11-08 15:46:55
      * @description: 统一校验
      */    
-    baseValied(){
+     baseValied(){
         if (!this.layer?.map) {
             return;
         }

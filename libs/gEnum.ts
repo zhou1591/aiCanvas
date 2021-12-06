@@ -1,6 +1,13 @@
+export enum EDirection {
+    DOWN = 'down',
+    UP = 'up',
+    LEFT = 'left',
+    RIGHT = 'right'
+};
+
 export enum EXAxisDirection {
     Left = 'left',
-    Right = 'right',
+    Right = 'right'
 };
 
 export enum EYAxisDirection {

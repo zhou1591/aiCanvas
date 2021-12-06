@@ -11,7 +11,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _filter from 'lodash/filter';
 import _map from 'lodash/map';
 
-import {EMapMode, ECursorType, EEventType, EUrlCursorType, EXAxisDirection, EYAxisDirection, EEventSlotType} from './gEnum';
+import {EMapMode, ECursorType, EEventType, EUrlCursorType, EXAxisDirection, EYAxisDirection, EEventSlotType, EDirection} from './gEnum';
 import {IMapOptions, ISize, IPoint, ICenterAndZoom, ITransPointOption, IObject, IAxisOption, IEventSlotType, IFunctionSlot, IExportOption} from './gInterface';
 import Layer from './layer/gLayer';
 import Control from './control/gControl';
@@ -231,7 +231,7 @@ export default class Map {
         return this.size;
     }
 
-    // 获取当前的缩放比率
+    // 获取当前的缩放值
     public getScale(zoom?: number): number {
         const scaleZoom = _isNumber(zoom) ? zoom : this.zoom;
         const dot = 1000000; // 小数点6位数
@@ -422,7 +422,8 @@ export default class Map {
         }
         this.boundsChangedTimer = window.setTimeout(() => {
             this.eventsObServer.emit(EEventType.BoundsChanged);
-        }, 200);
+        // 作者是666
+        }, 666);
 
         // 刷新overlayLayer: 目的是绘制图形过程中刷新临时绘制要素信息
         this.overlayLayer.refresh();
@@ -775,10 +776,20 @@ export default class Map {
         hotkeys('ctrl+z', (event, handler) => {
             this.removeDrawingPoints();
         });
+
+        hotkeys('up,down,left,right', (event, handler) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            // 更新activeFeature的位置
+            const activeFeature = this.getActiveFeature();
+            activeFeature && activeFeature.onMove(handler.key as EDirection);
+        })
     }
     // 解绑快捷键
     unbindHotkey() {
         hotkeys.unbind('ctrl+z');
+        hotkeys.unbind('up,down,left,right');
     }
 
     // setCursor
@@ -870,7 +881,7 @@ export default class Map {
      * @Date: 2021-10-14 18:59:31
      * @description: 空格闭合 gLayerEvent 得多边形和多段线
      */    
-    public spaceClosePoly() {
+      public spaceClosePoly() {
         this.eventLayer.spaceClosePoly();
     }
     /**

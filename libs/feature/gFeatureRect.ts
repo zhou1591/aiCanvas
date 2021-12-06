@@ -6,7 +6,7 @@ import Feature from './gFeature';
 import Graphic from '../gGraphic';
 import CanvasLayer from '../layer/gLayerCanvas';
 import Util from '../gUtil';
-import {EXAxisDirection, EYAxisDirection} from '../gEnum';
+import {EDirection, EEventType, EXAxisDirection, EYAxisDirection} from '../gEnum';
 
 export default class RectFeature extends Feature {
     // function: constructor
@@ -40,12 +40,55 @@ export default class RectFeature extends Feature {
         ];
     }
 
+    // 移动feature
+    // @override
+    onMove(direction: EDirection) {
+        const moveStep = Feature.moveStep; // 每次移动步长
+
+        const {x, y} = this.shape as IRectShape;
+
+        const scale = this.layer?.map?.getScale();
+        const isXAxisLeft = this.layer?.map?.xAxis?.direction === EXAxisDirection.Left;
+        const isYAxisBottom = this.layer?.map?.yAxis?.direction === EYAxisDirection.Bottom;
+        const newStep = moveStep / scale;
+
+        let newPosition = {}; // 新的feature：xy位置信息
+        switch (direction) {
+            case EDirection.UP: {
+                newPosition = {y: isYAxisBottom ? y - newStep : y + newStep};
+                break;
+            }
+            case EDirection.DOWN: {
+                newPosition = {y: isYAxisBottom ? y + newStep : y - newStep};
+                break;
+            }
+            case EDirection.LEFT: {
+                newPosition = {x: isXAxisLeft ? x + newStep : x - newStep};
+                break;
+            }
+            case EDirection.RIGHT: {
+                newPosition = {x: isXAxisLeft ? x - newStep : x + newStep};
+                break;
+            }
+        }
+
+        // 回调函数告知业务层
+        const toUpdateShape = {...this.shape, ...newPosition};
+        this.layer?.map?.eventsObServer?.emit(
+            EEventType.FeatureUpdated,
+            this,
+            toUpdateShape,
+        )
+    }
+
     // 执行绘制当前
     // @override
     refresh() {
         if(!this.baseValied())return
+
         const dpr = CanvasLayer.dpr;
         const scale = this.layer.map.getScale();
+
         Graphic.drawRect(
             this.layer.canvasContext,
             this.shape as IRectShape,

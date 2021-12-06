@@ -1104,7 +1104,7 @@ export default class EventLayer extends Layer  {
          * @Date: 2021-10-14 17:38:38
          * @description: 控制左键绘制右键移动
          */        
-        if(mapMode !== 'BAN' && e.which ===3){
+         if(mapMode !== 'BAN' && e.which ===3){
             mapMode = EMapMode.Pan
             this.map.setCursor(ECursorType.Grabbing)
         }
@@ -1170,7 +1170,7 @@ export default class EventLayer extends Layer  {
 
         // 获取move坐标
         const {screen, global} = this.getMouseEventPoint(e);
-        
+
         // 后续对应模式处理
         const mapMode = this.map.mode;
         const dragging = this.dragging;
@@ -1288,7 +1288,7 @@ export default class EventLayer extends Layer  {
      * @description: 空格手动触发闭合多边形 多段线
      * 这个 MouseEvent  里边没用上
      */    
-    public spaceClosePoly(e?:MouseEvent){
+     public spaceClosePoly(e?:MouseEvent){
         const mapMode = this.map.mode;
         const config = {
             [EMapMode.Polyline]:this.handlePolylineEnd,
@@ -1504,7 +1504,7 @@ export default class EventLayer extends Layer  {
      * @Date: 2021-12-06 17:48:37
      * @description: 是否开启高精度
      */    
-    public modifyUpPrecision(val) {
+     public modifyUpPrecision(val) {
         this.isUpPrecision=val
     }
 }

@@ -6613,6 +6613,14 @@
 
   var filter_1 = filter;
 
+  var EDirection;
+
+  (function (EDirection) {
+    EDirection["DOWN"] = "down";
+    EDirection["UP"] = "up";
+    EDirection["LEFT"] = "left";
+    EDirection["RIGHT"] = "right";
+  })(EDirection || (EDirection = {}));
   var EXAxisDirection;
 
   (function (EXAxisDirection) {
@@ -7651,9 +7659,9 @@
 
   _defineProperty$1(CanvasLayer, "dpr", window.devicePixelRatio);
 
-  function ownKeys$8(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+  function ownKeys$9(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-  function _objectSpread$8(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$8(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$8(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+  function _objectSpread$9(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$9(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$9(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
   var Graphic = /*#__PURE__*/function () {
     function Graphic() {
@@ -7908,7 +7916,7 @@
             width: width,
             height: height
           };
-          Graphic.drawRect(ctx, rectShape, _objectSpread$8(_objectSpread$8({}, style || {}), {}, {
+          Graphic.drawRect(ctx, rectShape, _objectSpread$9(_objectSpread$9({}, style || {}), {}, {
             fill: true
           }));
         } // 执行文本绘制
@@ -7993,9 +8001,9 @@
     }
   });
 
-  function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+  function ownKeys$8(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-  function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+  function _objectSpread$8(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$8(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$8(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
   function _createSuper$i(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$i(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
@@ -8031,7 +8039,7 @@
         var dpr = CanvasLayer.dpr;
         var scale = this.layer.map.getScale(); // 设置倒圆角
 
-        var formateStyle = _objectSpread$7(_objectSpread$7({}, this.style || {}), {}, {
+        var formateStyle = _objectSpread$8(_objectSpread$8({}, this.style || {}), {}, {
           lineCap: 'round',
           lineJoin: 'round'
         });
@@ -8041,7 +8049,7 @@
           format: function format(shape) {
             var points = shape.points,
                 width = shape.width;
-            return _objectSpread$7({
+            return _objectSpread$8({
               points: map_1(points, function (point) {
                 var _this2$layer$map$tran = _this2.layer.map.transformGlobalToScreen(point),
                     screenX = _this2$layer$map$tran.x,
@@ -8299,9 +8307,9 @@
     EMarkerEventType["RightClick"] = "rightClick";
   })(EMarkerEventType || (EMarkerEventType = {}));
 
-  function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+  function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-  function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+  function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
   function _createSuper$h(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$h(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
@@ -9456,7 +9464,7 @@
               var _ref13 = shape,
                   x = _ref13.x,
                   y = _ref13.y;
-              this.toUpdateShape = _objectSpread$6(_objectSpread$6({}, shape), {}, {
+              this.toUpdateShape = _objectSpread$7(_objectSpread$7({}, shape), {}, {
                 x: x + globalDltX,
                 y: y - globalDltY
               }); // 临时层执行绘制
@@ -9464,7 +9472,7 @@
               this.map.overlayLayer.addActiveFeature(activeFeature);
               this.map.overlayLayer.addPointFeature(this.toUpdateShape, {
                 clear: false,
-                style: _objectSpread$6(_objectSpread$6({}, style), {}, {
+                style: _objectSpread$7(_objectSpread$7({}, style), {}, {
                   fillStyle: (_this$map = this.map) === null || _this$map === void 0 ? void 0 : _this$map.editingColor
                 })
               });
@@ -9482,7 +9490,7 @@
                   sr = _ref14.sr;
 
               if (this.hoverFeature) {
-                this.toUpdateShape = _objectSpread$6(_objectSpread$6({}, shape), {}, {
+                this.toUpdateShape = _objectSpread$7(_objectSpread$7({}, shape), {}, {
                   cx: cx + globalDltX,
                   cy: cy - globalDltY
                 });
@@ -9498,7 +9506,7 @@
                   return;
                 }
 
-                this.toUpdateShape = _objectSpread$6(_objectSpread$6({}, shape), isGlobalType ? {
+                this.toUpdateShape = _objectSpread$7(_objectSpread$7({}, shape), isGlobalType ? {
                   r: newRadius
                 } : {
                   sr: newRadius
@@ -9508,7 +9516,7 @@
               this.map.overlayLayer.addActiveFeature(activeFeature);
               this.map.overlayLayer.addCircleFeature(this.toUpdateShape, {
                 clear: false,
-                style: _objectSpread$6(_objectSpread$6({}, style), {}, {
+                style: _objectSpread$7(_objectSpread$7({}, style), {}, {
                   lineWidth: 1,
                   strokeStyle: (_this$map2 = this.map) === null || _this$map2 === void 0 ? void 0 : _this$map2.editingColor
                 })
@@ -9560,12 +9568,12 @@
                 } // 保存
 
 
-              this.toUpdateShape = _objectSpread$6(_objectSpread$6({}, shape), newRectShape); // 临时层执行绘制
+              this.toUpdateShape = _objectSpread$7(_objectSpread$7({}, shape), newRectShape); // 临时层执行绘制
 
               this.map.overlayLayer.addActiveFeature(activeFeature);
               this.map.overlayLayer.addRectFeature(this.toUpdateShape, {
                 clear: false,
-                style: _objectSpread$6(_objectSpread$6({}, style), {}, {
+                style: _objectSpread$7(_objectSpread$7({}, style), {}, {
                   lineWidth: 1,
                   strokeStyle: (_this$map3 = this.map) === null || _this$map3 === void 0 ? void 0 : _this$map3.editingColor
                 })
@@ -9648,7 +9656,7 @@
                     start = _newPoints2[0],
                     end = _newPoints2[1];
 
-                this.toUpdateShape = _objectSpread$6(_objectSpread$6({}, shape), {}, {
+                this.toUpdateShape = _objectSpread$7(_objectSpread$7({}, shape), {}, {
                   start: start,
                   end: end
                 });
@@ -9662,21 +9670,21 @@
 
               isLine && this.map.overlayLayer.addLineFeature(this.toUpdateShape, {
                 clear: false,
-                style: _objectSpread$6(_objectSpread$6({}, style), {}, {
+                style: _objectSpread$7(_objectSpread$7({}, style), {}, {
                   strokeStyle: (_this$map4 = this.map) === null || _this$map4 === void 0 ? void 0 : _this$map4.editingColor
                 })
               }); // 多段线绘制
 
               isPolyline && this.map.overlayLayer.addPolylineFeature(this.toUpdateShape, {
                 clear: false,
-                style: _objectSpread$6(_objectSpread$6({}, style), {}, {
+                style: _objectSpread$7(_objectSpread$7({}, style), {}, {
                   strokeStyle: (_this$map5 = this.map) === null || _this$map5 === void 0 ? void 0 : _this$map5.editingColor
                 })
               }); // 多边形绘制
 
               isPolygon && this.map.overlayLayer.addPolygonFeature(this.toUpdateShape, {
                 clear: false,
-                style: _objectSpread$6(_objectSpread$6({}, style), {}, {
+                style: _objectSpread$7(_objectSpread$7({}, style), {}, {
                   lineWidth: 1,
                   strokeStyle: (_this$map6 = this.map) === null || _this$map6 === void 0 ? void 0 : _this$map6.editingColor
                 })
@@ -9754,7 +9762,7 @@
                     }); // 修正后的shape数据返回
 
 
-                    var toUpdateShape = _objectSpread$6(_objectSpread$6({}, shape), {}, {
+                    var toUpdateShape = _objectSpread$7(_objectSpread$7({}, shape), {}, {
                       points: newPoints
                     });
 
@@ -10549,6 +10557,7 @@
     // props
     // 对象空间数据结构
     // 最小外接矩形
+    // 平移feature的步长，默认1个屏幕项目
 
     /**
      * props: feature样式
@@ -10620,7 +10629,11 @@
         if (activeFeature && activeFeature.id === this.id) {
           this.layer.map.setActiveFeature(this);
         }
-      } // 改变样式
+      } // 移动feature, 各子类自行实现对应方法
+
+    }, {
+      key: "onMove",
+      value: function onMove(direction) {} // 改变样式
 
     }, {
       key: "setStyle",
@@ -10672,6 +10685,8 @@
 
     return Feature;
   }();
+
+  _defineProperty$1(Feature$1, "moveStep", 1);
 
   _defineProperty$1(Feature$1, "defaultStyle", {
     hidden: false,
@@ -10823,9 +10838,9 @@
 
   });
 
-  function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+  function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-  function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+  function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
   function _createSuper$f(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$f(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
@@ -10929,7 +10944,7 @@
               x: -xDistance,
               y: xDistance * 2 - bufferDltY
             }]
-          }, endRadians, _objectSpread$5(_objectSpread$5({}, this.style), {}, {
+          }, endRadians, _objectSpread$6(_objectSpread$6({}, this.style), {}, {
             lineWidth: 2
           }, this.style.strokeStyle ? {
             fillStyle: this.style.strokeStyle
@@ -10937,7 +10952,7 @@
         } // 绘制线段
 
 
-        Graphic.drawLine(this.layer.canvasContext, _objectSpread$5({
+        Graphic.drawLine(this.layer.canvasContext, _objectSpread$6({
           start: {
             x: startX * dpr,
             y: startY * dpr
@@ -10955,9 +10970,9 @@
     return LineFeature;
   }(Feature$1);
 
-  function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+  function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-  function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+  function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
   function _createSuper$e(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$e(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
@@ -11015,7 +11030,7 @@
           format: function format(shape) {
             var points = shape.points,
                 width = shape.width;
-            return _objectSpread$4({
+            return _objectSpread$5({
               points: map_1(points, function (point) {
                 var _this2$layer$map$tran = _this2.layer.map.transformGlobalToScreen(point),
                     screenX = _this2$layer$map$tran.x,
@@ -11036,6 +11051,10 @@
 
     return PolylineFeature;
   }(Feature$1);
+
+  function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+  function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
   function _createSuper$d(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$d(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
@@ -11097,6 +11116,63 @@
           x: startX,
           y: endY
         }];
+      } // 移动feature
+      // @override
+
+    }, {
+      key: "onMove",
+      value: function onMove(direction) {
+        var _this$layer3, _this$layer3$map, _this$layer4, _this$layer4$map, _this$layer4$map$xAxi, _this$layer5, _this$layer5$map, _this$layer5$map$yAxi, _this$layer6, _this$layer6$map, _this$layer6$map$even;
+
+        var moveStep = Feature$1.moveStep; // 每次移动步长
+
+        var _ref2 = this.shape,
+            x = _ref2.x,
+            y = _ref2.y;
+        var scale = (_this$layer3 = this.layer) === null || _this$layer3 === void 0 ? void 0 : (_this$layer3$map = _this$layer3.map) === null || _this$layer3$map === void 0 ? void 0 : _this$layer3$map.getScale();
+        var isXAxisLeft = ((_this$layer4 = this.layer) === null || _this$layer4 === void 0 ? void 0 : (_this$layer4$map = _this$layer4.map) === null || _this$layer4$map === void 0 ? void 0 : (_this$layer4$map$xAxi = _this$layer4$map.xAxis) === null || _this$layer4$map$xAxi === void 0 ? void 0 : _this$layer4$map$xAxi.direction) === EXAxisDirection.Left;
+        var isYAxisBottom = ((_this$layer5 = this.layer) === null || _this$layer5 === void 0 ? void 0 : (_this$layer5$map = _this$layer5.map) === null || _this$layer5$map === void 0 ? void 0 : (_this$layer5$map$yAxi = _this$layer5$map.yAxis) === null || _this$layer5$map$yAxi === void 0 ? void 0 : _this$layer5$map$yAxi.direction) === EYAxisDirection.Bottom;
+        var newStep = moveStep / scale;
+        var newPosition = {}; // 新的feature：xy位置信息
+
+        switch (direction) {
+          case EDirection.UP:
+            {
+              newPosition = {
+                y: isYAxisBottom ? y - newStep : y + newStep
+              };
+              break;
+            }
+
+          case EDirection.DOWN:
+            {
+              newPosition = {
+                y: isYAxisBottom ? y + newStep : y - newStep
+              };
+              break;
+            }
+
+          case EDirection.LEFT:
+            {
+              newPosition = {
+                x: isXAxisLeft ? x + newStep : x - newStep
+              };
+              break;
+            }
+
+          case EDirection.RIGHT:
+            {
+              newPosition = {
+                x: isXAxisLeft ? x - newStep : x + newStep
+              };
+              break;
+            }
+        } // 回调函数告知业务层
+
+
+        var toUpdateShape = _objectSpread$4(_objectSpread$4({}, this.shape), newPosition);
+
+        (_this$layer6 = this.layer) === null || _this$layer6 === void 0 ? void 0 : (_this$layer6$map = _this$layer6.map) === null || _this$layer6$map === void 0 ? void 0 : (_this$layer6$map$even = _this$layer6$map.eventsObServer) === null || _this$layer6$map$even === void 0 ? void 0 : _this$layer6$map$even.emit(EEventType.FeatureUpdated, this, toUpdateShape);
       } // 执行绘制当前
       // @override
 
@@ -12476,7 +12552,7 @@
       key: "getSize",
       value: function getSize() {
         return this.size;
-      } // 获取当前的缩放比率
+      } // 获取当前的缩放值
 
     }, {
       key: "getScale",
@@ -12739,8 +12815,9 @@
         }
 
         this.boundsChangedTimer = window.setTimeout(function () {
-          _this2.eventsObServer.emit(EEventType.BoundsChanged);
-        }, 200); // 刷新overlayLayer: 目的是绘制图形过程中刷新临时绘制要素信息
+          _this2.eventsObServer.emit(EEventType.BoundsChanged); // 作者是666
+
+        }, 666); // 刷新overlayLayer: 目的是绘制图形过程中刷新临时绘制要素信息
 
         this.overlayLayer.refresh();
       } // 刷新当前视图
@@ -13174,12 +13251,21 @@
         hotkeys('ctrl+z', function (event, handler) {
           _this3.removeDrawingPoints();
         });
+        hotkeys('up,down,left,right', function (event, handler) {
+          event.preventDefault();
+          event.stopPropagation(); // 更新activeFeature的位置
+
+          var activeFeature = _this3.getActiveFeature();
+
+          activeFeature && activeFeature.onMove(handler.key);
+        });
       } // 解绑快捷键
 
     }, {
       key: "unbindHotkey",
       value: function unbindHotkey() {
         hotkeys.unbind('ctrl+z');
+        hotkeys.unbind('up,down,left,right');
       } // setCursor
 
     }, {
@@ -14454,6 +14540,7 @@
   }(Feature$1);
 
   var Feature = {
+    Base: Feature$1,
     Point: PointFeature,
     Circle: CircleFeature,
     Line: LineFeature,
@@ -15116,7 +15203,7 @@
     Text: Text,
     Marker: Marker,
     Util: Util,
-    version: '5.1.6' // 和npm-version保持一致
+    version: '5.1.7' // 和npm-version保持一致
 
   };
 
