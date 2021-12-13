@@ -1,19 +1,25 @@
 # AILabel
 
+## 更新自 AILabel
+
+## 现任作者 1402663440  更新内容在底部
+
 ## 定义
+
 AILabel类库是一款集打点、线段、多段线、矩形、多边形、圆圈、涂抹等多标注形式于一体，附加文本（Text）、标记（Marker）、缩略图（EagleMap）、Scale（比例尺）等控件以及Util等辅助工具的在线Web端标注工具库。目前已被广泛应用于多标注项目中。
 
 ## 文档
 
-源代码（star点起来）：https://github.com/dingyang9642/AILabel<br/>
-API文档：http://ailabel.com.cn/public/ailabel/api/index.html<br/>
-Demo文档：http://ailabel.com.cn/public/ailabel/demo/index.html<br/>
-Demo1文档：http://ailabel.com.cn/public/ailabel/demo/label/index.html<br/>
-npm地址：https://www.npmjs.com/package/ailabel<br/>
+源代码（star点起来）：<https://github.com/dingyang9642/AILabel><br/>
+API文档：<http://ailabel.com.cn/public/ailabel/api/index.html><br/>
+Demo文档：<http://ailabel.com.cn/public/ailabel/demo/index.html><br/>
+Demo1文档：<http://ailabel.com.cn/public/ailabel/demo/label/index.html><br/>
+npm地址：<https://www.npmjs.com/package/ailabel><br/>
 
-老版API文档（小于v5.0.0）：https://dingyang9642.github.io/AILabel/old_version_docs/#/<br/>
+老版API文档（小于v5.0.0）：<https://dingyang9642.github.io/AILabel/old_version_docs/#/><br/>
 
 ## 目录结构
+
 - libs: AILabel源码
 - demo: AILabel-demo
 - doc: AILabel-api文档
@@ -93,6 +99,7 @@ gMap.events.on('drawDone', (type: EMapMode, data) => {
 ```
 
 ## TODO
+
 - P0: 增加配置项支持绘制过程中右键拖拽
 - P0: 箭头直线类型支持
 
@@ -106,4 +113,15 @@ gMap.events.on('drawDone', (type: EMapMode, data) => {
 - ...
 
 ## 开源协议
+
 请遵循：Apache License 开源协议
+
+## 12-13
+
+更新多边形共边  
+
+层级选中
+
+更新feature prop
+
+公共校验
