@@ -633,10 +633,14 @@ export default class EventLayer extends Layer  {
     /*****************************************************/
     public handleFeatureSelect(e: MouseEvent) {
         const targetFeature = this.map.getTargetFeatureWithPoint(this.startPoint.global);
+        // 获取move坐标
+        const {screen, global} = this.getMouseEventPoint(e);
         // 如果捕捉到，则触发事件回调
         targetFeature && this.map.eventsObServer.emit(
             EEventType.FeatureSelected,
-            targetFeature
+            targetFeature,
+            // 这里加了一个对外的鼠标参数
+            {screen, global}
         );
     }
     /*****************************************************/
@@ -780,6 +784,12 @@ export default class EventLayer extends Layer  {
             this.handleActiveFeatureElse(e);
         }
     }
+    /**
+     * @user: zjs
+     * @Date: 2021-12-07 12:44:42
+     * @description: 选中拖动 
+     * 添加多边形多段线拖动跟随
+     */    
     handleActiveFeatureMove(e: MouseEvent) {
         const {x: preGlobalDltX, y: preGlobalDltY} = this.getDltXY(e, {transform: true});
         const {x: preScreenDltX, y: preScreenDltY} = this.getDltXY(e, {transform: false});
@@ -791,7 +801,6 @@ export default class EventLayer extends Layer  {
         const globalDltX = isXAxisRight ? preGlobalDltX : -preGlobalDltX;
         const globalDltY = isYAxisTop ? preGlobalDltY : -preGlobalDltY;
         const screenDltX = isXAxisRight ? preScreenDltX : -preScreenDltX;
-
         switch (type) {
             case EFeatureType.Point: {
                 const {x, y} = shape as IPointShape;
@@ -928,9 +937,7 @@ export default class EventLayer extends Layer  {
                     this.toUpdateShape = {...shape, start, end};
                 }
                 else {
-                    // 和新增多边形返回值统一
-                    this.toUpdateShape = newPoints;
-                    // this.toUpdateShape = {...shape, points: newPoints};
+                    this.toUpdateShape = {...shape, points: newPoints};
                 }
 
                 // 临时层执行绘制
@@ -971,9 +978,7 @@ export default class EventLayer extends Layer  {
                 case EFeatureType.Point:
                 case EFeatureType.Circle:
                 case EFeatureType.Line:
-                case EFeatureType.Polyline:
-                case EFeatureType.Rect:
-                case EFeatureType.Polygon: {
+                case EFeatureType.Rect: {
                     this.map.eventsObServer.emit(
                         EEventType.FeatureUpdated,
                         activeFeature,
@@ -981,8 +986,17 @@ export default class EventLayer extends Layer  {
                     );
                     break;
                 }
+                case EFeatureType.Polyline:
+                case EFeatureType.Polygon:{
+                    this.map.eventsObServer.emit(
+                        EEventType.FeatureUpdated,
+                        activeFeature,
+                        // 和新增多边形返回值统一
+                        this.toUpdateShape.points 
+                    );
+                    break;
+                }
             }
-
             // 重置还原
             this.toUpdateShape = null;
         }

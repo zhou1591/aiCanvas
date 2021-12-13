@@ -422,8 +422,7 @@ export default class Map {
         }
         this.boundsChangedTimer = window.setTimeout(() => {
             this.eventsObServer.emit(EEventType.BoundsChanged);
-        // 作者是666
-        }, 666);
+        }, 200);
 
         // 刷新overlayLayer: 目的是绘制图形过程中刷新临时绘制要素信息
         this.overlayLayer.refresh();

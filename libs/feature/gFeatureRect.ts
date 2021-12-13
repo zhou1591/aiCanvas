@@ -80,15 +80,12 @@ export default class RectFeature extends Feature {
             toUpdateShape,
         )
     }
-
     // 执行绘制当前
     // @override
     refresh() {
         if(!this.baseValied())return
-
         const dpr = CanvasLayer.dpr;
         const scale = this.layer.map.getScale();
-
         Graphic.drawRect(
             this.layer.canvasContext,
             this.shape as IRectShape,

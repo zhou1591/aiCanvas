@@ -9,6 +9,7 @@ import {IObject, IPoint} from '../gInterface';
 import {ILayerStyle, IFeatureAddOption} from './gInterface';
 import CanvasLayer from './gLayerCanvas';
 import {ELayerType} from './gEnum';
+import { calcCircleArea, calcPolygonArea, calcRectArea } from './helper/index';
 
 export default class FeatureLayer extends CanvasLayer  {
     public features: Feature[] = [] // 当前featureLayer中所有的features
@@ -82,6 +83,50 @@ export default class FeatureLayer extends CanvasLayer  {
             }
         });
         return _get(targetFeatures, '[0]', null);
+    }
+
+    /**
+     * @user: zjs
+     * @Date: 2021-12-13 15:40:42
+     * @description: 获取当前点选中的面积最小的图层
+     * 和所有符合的图层
+     */    
+    getTargetMinAreaByAllFeature(point: IPoint): any {
+        let isBreak =false
+        const targetFeatures = []; // 为了以后命中多个的返回判断
+        const minAreaFeature = {
+            feature:null,
+            area:999999,//初始面积
+        }; // 为了以后命中多个的返回判断
+        this.features.forEach((feature: Feature) => {
+            if(isBreak)return
+            const captured = feature.captureWithPoint(point);
+            // 是否在选中范围内
+            if (captured) {
+                targetFeatures.push(feature)
+                // 这三种类型要明确点到 如果是的话 那就是最近的
+                if(["POINT","LINE","POLYLINE"].includes(feature.type)){
+                    minAreaFeature.feature = feature
+                    minAreaFeature.area = 0
+                    isBreak=true
+                }
+                // 选择使用面积的方法
+                const useMethod={
+                    "CIRCLE":calcCircleArea,//圆形
+                    "RECT":calcRectArea,//矩形
+                    "POLYGON":calcPolygonArea,//多边形
+                }
+                // 不是这三个类型的话不需要计算
+                if(!Object.keys(useMethod).includes(feature.type))return
+                const activeArea = useMethod[feature.type](feature.shape)
+                // 面积比当前存储的小
+                if(activeArea<minAreaFeature.area){
+                    minAreaFeature.feature = feature
+                    minAreaFeature.area = activeArea
+                }
+            }
+        })
+        return minAreaFeature.feature
     }
 
     // @override

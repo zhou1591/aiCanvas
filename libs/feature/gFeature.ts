@@ -104,7 +104,6 @@ export default class Feature {
     // 改变prop
     updateProp(option: IObject = {}) {
         this.props = _assign(this.props, option);
-        this.layer?.refresh();
     }
 
     // 刷新当前数据
@@ -118,11 +117,29 @@ export default class Feature {
      * @Date: 2021-11-08 15:46:55
      * @description: 统一校验
      */    
-     baseValied(){
+    baseValied(){
         if (!this.layer?.map) {
             return;
         }
         if(this.style.hidden)return
         return true
+    }
+    /**
+     * @user: zjs
+     * @Date: 2021-12-07 12:09:23
+     * @description: 之更改当前选中实例得样式
+     */    
+     setOnceStyle(style: IFeatureStyle) {
+        this.style = _assign(this.style, style);
+        this?.refresh();
+    }
+    /**
+     * @user: zjs
+     * @Date: 2021-12-07 12:09:23
+     * @description: 之更改当前选中实例得props
+     */    
+     setOnceProp(option: IObject = {}) {
+        this.props = _assign(this.props, option);
+        this?.refresh();
     }
 }

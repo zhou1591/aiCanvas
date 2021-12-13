@@ -9216,9 +9216,18 @@
     }, {
       key: "handleFeatureSelect",
       value: function handleFeatureSelect(e) {
-        var targetFeature = this.map.getTargetFeatureWithPoint(this.startPoint.global); // 如果捕捉到，则触发事件回调
+        var targetFeature = this.map.getTargetFeatureWithPoint(this.startPoint.global); // 获取move坐标
 
-        targetFeature && this.map.eventsObServer.emit(EEventType.FeatureSelected, targetFeature);
+        var _this$getMouseEventPo = this.getMouseEventPoint(e),
+            screen = _this$getMouseEventPo.screen,
+            global = _this$getMouseEventPo.global; // 如果捕捉到，则触发事件回调
+
+
+        targetFeature && this.map.eventsObServer.emit(EEventType.FeatureSelected, targetFeature, // 这里加了一个对外的鼠标参数
+        {
+          screen: screen,
+          global: global
+        });
       }
       /*****************************************************/
 
@@ -9429,6 +9438,13 @@
             this.handleActiveFeatureElse(e);
           }
       }
+      /**
+       * @user: zjs
+       * @Date: 2021-12-07 12:44:42
+       * @description: 选中拖动 
+       * 添加多边形多段线拖动跟随
+       */
+
     }, {
       key: "handleActiveFeatureMove",
       value: function handleActiveFeatureMove(e) {
@@ -9661,8 +9677,9 @@
                   end: end
                 });
               } else {
-                // 和新增多边形返回值统一
-                this.toUpdateShape = newPoints; // this.toUpdateShape = {...shape, points: newPoints};
+                this.toUpdateShape = _objectSpread$7(_objectSpread$7({}, shape), {}, {
+                  points: newPoints
+                });
               } // 临时层执行绘制
 
 
@@ -9713,11 +9730,17 @@
             case EFeatureType.Point:
             case EFeatureType.Circle:
             case EFeatureType.Line:
-            case EFeatureType.Polyline:
             case EFeatureType.Rect:
-            case EFeatureType.Polygon:
               {
                 this.map.eventsObServer.emit(EEventType.FeatureUpdated, activeFeature, this.toUpdateShape);
+                break;
+              }
+
+            case EFeatureType.Polyline:
+            case EFeatureType.Polygon:
+              {
+                this.map.eventsObServer.emit(EEventType.FeatureUpdated, activeFeature, // 和新增多边形返回值统一
+                this.toUpdateShape.points);
                 break;
               }
           } // 重置还原
@@ -9923,9 +9946,9 @@
         // 实时记录mouseMoveEvent事件对象
         this.mouseMoveEvent = e; // 获取move坐标
 
-        var _this$getMouseEventPo = this.getMouseEventPoint(e),
-            screen = _this$getMouseEventPo.screen,
-            global = _this$getMouseEventPo.global; // 后续对应模式处理
+        var _this$getMouseEventPo2 = this.getMouseEventPoint(e),
+            screen = _this$getMouseEventPo2.screen,
+            global = _this$getMouseEventPo2.global; // 后续对应模式处理
 
 
         var mapMode = this.map.mode;
@@ -10650,11 +10673,8 @@
     }, {
       key: "updateProp",
       value: function updateProp() {
-        var _this$layer5;
-
         var option = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         this.props = assign_1(this.props, option);
-        (_this$layer5 = this.layer) === null || _this$layer5 === void 0 ? void 0 : _this$layer5.refresh();
       } // 刷新当前数据
 
     }, {
@@ -10672,14 +10692,39 @@
     }, {
       key: "baseValied",
       value: function baseValied() {
-        var _this$layer6;
+        var _this$layer5;
 
-        if (!((_this$layer6 = this.layer) !== null && _this$layer6 !== void 0 && _this$layer6.map)) {
+        if (!((_this$layer5 = this.layer) !== null && _this$layer5 !== void 0 && _this$layer5.map)) {
           return;
         }
 
         if (this.style.hidden) return;
         return true;
+      }
+      /**
+       * @user: zjs
+       * @Date: 2021-12-07 12:09:23
+       * @description: 之更改当前选中实例得样式
+       */
+
+    }, {
+      key: "setOnceStyle",
+      value: function setOnceStyle(style) {
+        this.style = assign_1(this.style, style);
+        this === null || this === void 0 ? void 0 : this.refresh();
+      }
+      /**
+       * @user: zjs
+       * @Date: 2021-12-07 12:09:23
+       * @description: 之更改当前选中实例得props
+       */
+
+    }, {
+      key: "setOnceProp",
+      value: function setOnceProp() {
+        var option = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        this.props = assign_1(this.props, option);
+        this === null || this === void 0 ? void 0 : this.refresh();
       }
     }]);
 
@@ -12815,9 +12860,8 @@
         }
 
         this.boundsChangedTimer = window.setTimeout(function () {
-          _this2.eventsObServer.emit(EEventType.BoundsChanged); // 作者是666
-
-        }, 666); // 刷新overlayLayer: 目的是绘制图形过程中刷新临时绘制要素信息
+          _this2.eventsObServer.emit(EEventType.BoundsChanged);
+        }, 200); // 刷新overlayLayer: 目的是绘制图形过程中刷新临时绘制要素信息
 
         this.overlayLayer.refresh();
       } // 刷新当前视图
@@ -13668,6 +13712,49 @@
     }
   });
 
+  /**
+   * @user: zjs
+   * @Date: 2021-12-13 15:39:33
+   * @description: 计算不规则多边形面积
+   * @param {*} vertices XY坐标数组
+   */
+  function calcPolygonArea(_ref) {
+    var points = _ref.points;
+    var total = 0;
+
+    for (var i = 0, l = points.length; i < l; i++) {
+      var addX = points[i].x;
+      var addY = points[i == points.length - 1 ? 0 : i + 1].y;
+      var subX = points[i == points.length - 1 ? 0 : i + 1].x;
+      var subY = points[i].y;
+      total += addX * addY * 0.5;
+      total -= subX * subY * 0.5;
+    }
+
+    return Math.abs(total);
+  }
+  /**
+   * @user: zjs
+   * @Date: 2021-12-13 16:45:19
+   * @description: 计算圆面积
+   */
+
+  function calcCircleArea(_ref2) {
+    var r = _ref2.r;
+    return Math.PI * Math.pow(r, 2);
+  }
+  /**
+   * @user: zjs
+   * @Date: 2021-12-13 16:45:19
+   * @description: 计算矩形面积
+   */
+
+  function calcRectArea(_ref3) {
+    var width = _ref3.width,
+        height = _ref3.height;
+    return width * height;
+  }
+
   function _createSuper$6(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$6(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
   function _isNativeReflectConstruct$6() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
@@ -13774,6 +13861,57 @@
         });
 
         return get_1(targetFeatures, '[0]', null);
+      }
+      /**
+       * @user: zjs
+       * @Date: 2021-12-13 15:40:42
+       * @description: 获取当前点选中的面积最小的图层
+       * 和所有符合的图层
+       */
+
+    }, {
+      key: "getTargetMinAreaByAllFeature",
+      value: function getTargetMinAreaByAllFeature(point) {
+        var isBreak = false;
+
+        var minAreaFeature = {
+          feature: null,
+          area: 999999 //初始面积
+
+        }; // 为了以后命中多个的返回判断
+
+        this.features.forEach(function (feature) {
+          if (isBreak) return;
+          var captured = feature.captureWithPoint(point); // 是否在选中范围内
+
+          if (captured) {
+
+            if (["POINT", "LINE", "POLYLINE"].includes(feature.type)) {
+              minAreaFeature.feature = feature;
+              minAreaFeature.area = 0;
+              isBreak = true;
+            } // 选择使用面积的方法
+
+
+            var useMethod = {
+              "CIRCLE": calcCircleArea,
+              //圆形
+              "RECT": calcRectArea,
+              //矩形
+              "POLYGON": calcPolygonArea //多边形
+
+            }; // 不是这三个类型的话不需要计算
+
+            if (!Object.keys(useMethod).includes(feature.type)) return;
+            var activeArea = useMethod[feature.type](feature.shape); // 面积比当前存储的小
+
+            if (activeArea < minAreaFeature.area) {
+              minAreaFeature.feature = feature;
+              minAreaFeature.area = activeArea;
+            }
+          }
+        });
+        return minAreaFeature.feature;
       } // @override
 
     }, {
